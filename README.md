@@ -1,3 +1,6 @@
+# About
+This repo is fored from [rioyokotalab/Megatron-DeepSpeed-Ylab](https://github.com/rioyokotalab/Megatron-DeepSpeed-Ylab/tree/main), which is originated from [microsoft/Megatron-DeepSpeed](https://github.com/microsoft/Megatron-DeepSpeed)
+
 ## Megatron-DeepSpeed
 DeepSpeed version of NVIDIA's Megatron-LM that adds additional support for several features such as MoE model training, Curriculum Learning, 3D Parallelism, and others. The ```Megatron-DeepSpeed/examples/``` folder includes example scripts about the features supported by DeepSpeed.
 
