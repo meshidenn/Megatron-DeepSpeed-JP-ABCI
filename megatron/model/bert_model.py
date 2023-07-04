@@ -150,7 +150,9 @@ class BertModel(MegatronModule):
             init_method=init_method,
             scaled_init_method=scaled_init_method,
             pre_process=self.pre_process,
-            post_process=self.post_process)
+            post_process=self.post_process,
+            num_experts=args.num_experts,
+        )
 
         self.initialize_word_embeddings(init_method_normal)
         if self.post_process:
@@ -182,19 +184,14 @@ class BertModel(MegatronModule):
             tokentype_ids=tokentype_ids
         )
 
-        if self.post_process and self.add_binary_head:
-            lm_output, pooled_output = lm_output[0], lm_output[1]
-        else:
-            pooled_output = None
-
         if self.post_process:
-            return post_language_model_processing(lm_output, pooled_output,
+            pooled_output = lm_output[1] if self.add_binary_head else None
+            return post_language_model_processing(lm_output[0], pooled_output,
                                                   self.lm_head, self.binary_head,
                                                   lm_labels,
                                                   self.word_embeddings_weight(),
                                                   self.fp16_lm_cross_entropy)
-        else:
-            return lm_output
+        return lm_output
 
 
     def state_dict_for_save_checkpoint(self, destination=None, prefix='',
